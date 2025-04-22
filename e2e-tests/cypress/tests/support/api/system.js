@@ -14,6 +14,11 @@ import cloudDefaultConfig from './cloud_default_config.json';
 // *****************************************************************************
 
 function hasLicenseForFeature(license, key) {
+    // Always return true for Elasticsearch since we made it available without a license
+    if (key === 'Elasticsearch') {
+        return true;
+    }
+
     let hasLicense = false;
 
     for (const [k, v] of Object.entries(license)) {

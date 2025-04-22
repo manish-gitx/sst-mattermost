@@ -16,6 +16,43 @@ import (
 	"github.com/mattermost/mattermost/server/v8/channels/store/sqlstore"
 	"github.com/mattermost/mattermost/server/v8/channels/utils"
 	"github.com/mattermost/mattermost/server/v8/config"
+
+	// Enterprise Deps
+	_ "github.com/gorilla/handlers"
+	_ "github.com/hako/durafmt"
+	_ "github.com/splitio/go-client/v6/splitio"
+	_ "github.com/tylerb/graceful"
+
+	// Enterprise Imports
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/account_migration"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/admin_guide"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/announcement"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/audits"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/authenticator"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/commands"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/compliance"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/data_retention"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/dashboard"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/elasticsearch"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/imports"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/ingestion"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/licensing"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/message_export"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/metrics"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/mfa"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/openapi"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/playbooks"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/remote_cluster"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/saml"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/sandbox"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/search"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/service_control"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/shared_channels"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/support"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/system"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/team_limits"
+	_ "github.com/mattermost/mattermost/server/v8/enterprise/user_retention"
+	_ "github.com/mattermost/mattermost/server/v8/platform/services/searchengine/elasticsearch"
 )
 
 func initDBCommandContextCobra(command *cobra.Command, readOnlyConfigStore bool, options ...app.Option) (*app.App, error) {

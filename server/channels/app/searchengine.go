@@ -13,7 +13,7 @@ import (
 
 func (a *App) TestElasticsearch(rctx request.CTX, cfg *model.Config) *model.AppError {
 	if *cfg.ElasticsearchSettings.Password == model.FakeSetting {
-		if *cfg.ElasticsearchSettings.ConnectionURL == *a.Config().ElasticsearchSettings.ConnectionURL && *cfg.ElasticsearchSettings.Username == *a.Config().ElasticsearchSettings.Username {
+		if *cfg.ElasticsearchSettings.ConnectionUrl == *a.Config().ElasticsearchSettings.ConnectionUrl && *cfg.ElasticsearchSettings.Username == *a.Config().ElasticsearchSettings.Username {
 			*cfg.ElasticsearchSettings.Password = *a.Config().ElasticsearchSettings.Password
 		} else {
 			return model.NewAppError("TestElasticsearch", "ent.elasticsearch.test_config.reenter_password", nil, "", http.StatusBadRequest)
@@ -22,8 +22,7 @@ func (a *App) TestElasticsearch(rctx request.CTX, cfg *model.Config) *model.AppE
 
 	seI := a.SearchEngine().ElasticsearchEngine
 	if seI == nil {
-		err := model.NewAppError("TestElasticsearch", "ent.elasticsearch.test_config.license.error", nil, "", http.StatusNotImplemented)
-		return err
+		return model.NewAppError("TestElasticsearch", "searchengine.elasticsearch.disabled.error", nil, "Elasticsearch engine is not initialized", http.StatusNotImplemented)
 	}
 	if err := seI.TestConfig(rctx, cfg); err != nil {
 		return err
@@ -39,8 +38,7 @@ func (a *App) SetSearchEngine(se *searchengine.Broker) {
 func (a *App) PurgeElasticsearchIndexes(c request.CTX, indexes []string) *model.AppError {
 	engine := a.SearchEngine().ElasticsearchEngine
 	if engine == nil {
-		err := model.NewAppError("PurgeElasticsearchIndexes", "ent.elasticsearch.test_config.license.error", nil, "", http.StatusNotImplemented)
-		return err
+		return model.NewAppError("PurgeElasticsearchIndexes", "searchengine.elasticsearch.disabled.error", nil, "Elasticsearch engine is not initialized", http.StatusNotImplemented)
 	}
 
 	var appErr *model.AppError
