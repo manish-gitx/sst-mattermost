@@ -15,9 +15,9 @@ jobs:
         working-directory: server
     steps:
       - name: Checkout mattermost project
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Checkout migration-assist project
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: mattermost/migration-assist
           ref: main
@@ -27,7 +27,7 @@ jobs:
           diff --brief --recursive channels/db/migrations/postgres /home/runner/work/mattermost/mattermost/migration-assist/queries/migrations/postgres 
       - name: Report migrations are not in sync via webhook
         if: ${{ failure() }}
-        uses: mattermost/action-mattermost-notify@b7d118e440bf2749cd18a4a8c88e7092e696257a # v2.0.0
+        uses: mattermost/action-mattermost-notify@ae31bb6f9e26a54336e79696f108a2c91cf55b4e # v2.1.0
         with:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MM_COMMUNITY_MIGRATIONS_INCOMING_WEBHOOK_FROM_GH_ACTIONS }}
           TEXT: |-

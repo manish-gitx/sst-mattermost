@@ -27,7 +27,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout mattermost project
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Run docker compose
         run: |
           cd server/build
@@ -90,7 +90,7 @@ jobs:
           # We skip the very last line, which simply contains the date of the dump
           head -n -1 ${DUMP_SERVER_NAME} | gzip > ${DUMP_SERVER_NAME}.gz
       - name: Upload dump
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: upgraded-dump-server
           path: ${{ env.DUMP_SERVER_NAME }}.gz
@@ -99,7 +99,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout mattermost project
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Run docker compose
         run: |
           cd server/build
@@ -136,7 +136,7 @@ jobs:
           # We skip the very last line, which simply contains the date of the dump
           head -n -1 ${DUMP_SCRIPT_NAME} | gzip > ${DUMP_SCRIPT_NAME}.gz
       - name: Upload dump
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: upgraded-dump-script
           path: ${{ env.DUMP_SCRIPT_NAME }}.gz
@@ -147,7 +147,7 @@ jobs:
       - esr-upgrade-script
     steps:
       - name: Retrieve dumps
-        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
       - name: Diff dumps
         run: |
           gzip -d upgraded-dump-server/${DUMP_SERVER_NAME}.gz
@@ -155,7 +155,7 @@ jobs:
           diff upgraded-dump-server/$DUMP_SERVER_NAME upgraded-dump-script/$DUMP_SCRIPT_NAME > $DIFF_NAME
       - name: Upload diff
         if: failure() # Upload the diff only if the previous step failed; i.e., if the diff is non-empty
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: dumps-diff
           path: ${{ env.DIFF_NAME }}
